@@ -66,15 +66,15 @@ namespace WebApplication1
                 theTask.HasKey(tt => tt.Id);
 
                 theTask.HasOne(tt => tt.Category)
-                .WithMany(c => c.TheTask)
-                .HasForeignKey(tt => tt.CategoryId)
-                .IsRequired();
+                .WithMany(c => c.TheTasks)
+                .HasForeignKey(tt => tt.CategoryId);
+         
 
                 theTask.Property(tt => tt.Title).IsRequired().HasMaxLength(200);
                 theTask.Property(tt => tt.Description);
                 theTask.Property(tt => tt.Priority);
                 theTask.Property(tt => tt.CreatedAt);
-                theTask.Property(tt => tt.Summary).IsRequired(false);
+                theTask.Property(tt => tt.Summary);
 
                 theTask.HasData(theTaskInit);
                 

@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TheTask>>> GetTheTasks()
         {
-            var theTasks = await _context.TheTasks.ToListAsync<TheTask>();
+            var theTasks = await _context.TheTasks.Include(tt => tt.Category).ToListAsync<TheTask>();
 
             return Ok(new { results = new { data = theTasks }, error = false });
         }
@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TheTask>> GetTheTask(Guid id)
         {
-            var theTask = await _context.TheTasks.FindAsync(id);
+            var theTask = await _context.TheTasks.Include(tt => tt.Category).FirstOrDefaultAsync(tt => tt.Id == id);
 
             if(theTask == null)
             {
@@ -37,6 +37,24 @@ namespace WebApplication1.Controllers
             }
 
             return Ok(new { results = new { data = theTask }, error = false });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TheTask>> PostTheTask(TheTask theTask)
+        {
+            theTask.Id = Guid.NewGuid();
+            theTask.CreatedAt = DateTime.Now;
+            // theTask.Category = new Category { Id = theTask.CategoryId, Name = "Electronic", Description = "About electronic for different situations" };
+            
+            await _context.AddAsync(theTask);
+
+            await _context.SaveChangesAsync();
+
+
+            var createdTask = await _context.TheTasks.Include(tt => tt.Category).FirstOrDefaultAsync(tt => tt.Id == theTask.Id);
+
+
+            return Ok(new { results = new { data = createdTask }, error = false });
         }
 
     }

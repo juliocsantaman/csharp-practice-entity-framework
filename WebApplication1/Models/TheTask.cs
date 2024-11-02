@@ -1,25 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WebApplication1.Models
 {
     public class TheTask
     {
-        [Key]
+        // [Key]
         public Guid Id { get; set; }
-        [ForeignKey("CategoryId")]
+        // [ForeignKey("CategoryId")]
         public Guid CategoryId { get; set; }
-        [Required]
-        [MaxLength(200)]
+        // [Required]
+        // [MaxLength(200)]
         public string Title { get; set; }
         public string Description { get; set; }
         public PriorityEnum Priority { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public virtual Category Category { get; set; }
+        public virtual Category? Category { get; set; }
 
-        [NotMapped]
-        public string Summary { get; set; }
+        // [NotMapped]
+        public string? Summary { get; set; }
 
     }
 

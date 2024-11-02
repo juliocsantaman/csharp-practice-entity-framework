@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
@@ -11,9 +12,11 @@ using WebApplication1;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(TheTaskContext))]
-    partial class TheTaskContextModelSnapshot : ModelSnapshot
+    [Migration("20241101232413_ConfigModels2")]
+    partial class ConfigModels2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +100,7 @@ namespace WebApplication1.Migrations
                         {
                             Id = new Guid("56f740ff-40fd-47d3-a565-ffc9418544cb"),
                             CategoryId = new Guid("78d2ee38-8cd5-4709-a8db-c697966575ef"),
-                            CreatedAt = new DateTime(2024, 11, 1, 23, 44, 37, 80, DateTimeKind.Utc).AddTicks(623),
+                            CreatedAt = new DateTime(2024, 11, 1, 23, 24, 13, 111, DateTimeKind.Utc).AddTicks(4867),
                             Description = "New vocabulary to study and practicing",
                             Priority = 0,
                             Title = "Search new words to learn in English"
@@ -106,7 +109,7 @@ namespace WebApplication1.Migrations
                         {
                             Id = new Guid("46d89227-eca6-48c1-a78c-867a064bbd9f"),
                             CategoryId = new Guid("3e4edaca-6e16-4826-b413-5194eaad821c"),
-                            CreatedAt = new DateTime(2024, 11, 1, 23, 44, 37, 80, DateTimeKind.Utc).AddTicks(628),
+                            CreatedAt = new DateTime(2024, 11, 1, 23, 24, 13, 111, DateTimeKind.Utc).AddTicks(4871),
                             Description = "Improving speaking to understand better native speakers",
                             Priority = 2,
                             Title = "Practice English in platforms where you can speak with other people"
