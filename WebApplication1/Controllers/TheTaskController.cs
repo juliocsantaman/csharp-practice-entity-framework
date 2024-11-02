@@ -57,5 +57,29 @@ namespace WebApplication1.Controllers
             return Ok(new { results = new { data = createdTask }, error = false });
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TheTask>> PutTheTask(Guid id, TheTask theTask)
+        {
+            var currentTheTask = await _context.TheTasks.FindAsync(id);
+
+            if (currentTheTask == null)
+            {
+                return NotFound("Not found");
+            }
+
+            currentTheTask.CategoryId = theTask.CategoryId;
+            currentTheTask.Title = theTask.Title;
+            currentTheTask.Description = theTask.Description;
+            currentTheTask.Priority = theTask.Priority;
+            currentTheTask.Summary = theTask.Summary;
+
+            await _context.SaveChangesAsync();
+
+            var updatedTask = await _context.TheTasks.Include(tt => tt.Category).FirstOrDefaultAsync(tt => tt.Id == currentTheTask.Id);
+
+
+            return Ok(new { results = new { data = updatedTask }, error = false });
+        }
+
     }
 }
