@@ -81,5 +81,24 @@ namespace WebApplication1.Controllers
             return Ok(new { results = new { data = updatedTask }, error = false });
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteTheTask(Guid id)
+        {
+            var currentTask = await _context.TheTasks.FindAsync(id);
+
+
+            if(currentTask == null)
+            {
+                return NotFound("Not found");
+            }
+
+            _context.Remove(currentTask);
+            await _context.SaveChangesAsync();
+
+            return Ok($"The task with id: {id} was removed successfully");
+
+
+        }
+
     }
 }
